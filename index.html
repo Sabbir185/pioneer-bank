@@ -33,7 +33,7 @@
             <div class="col-md-4">
                 <div class="withdraw status">
                     <h5>Withdraw</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="currentWithdraw">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -57,17 +57,14 @@
             <div class="col-md-6">
                 <div class="submit-ariea">
                     <h4>Withdraw</h4>
-                    <input type="text" class="form-control" placeholder="$ amount you want to withdraw">
+                    <input id="withdrawAmount" type="text" class="form-control" placeholder="$ amount you want to withdraw">
                     <br>
-                    <div class="btn btn-success">Withdraw</div>
+                    <div id="addWithdraw" class="btn btn-success">Withdraw</div>
                 </div>
             </div>
         </div>
         
     </section>
-
-
-
 
 
     <footer>
@@ -76,6 +73,7 @@
     
 
     <script>
+
         // login event handler
         const loginBtn = document.getElementById('login');
         loginBtn.addEventListener("click", function(){
@@ -88,21 +86,9 @@
         // deposit event handler
         const depositBtn = document.getElementById('addDeposit');
         depositBtn.addEventListener("click", function(){
-            const addMoney = document.getElementById('addAmount').value;
-            const convertValue = parseFloat(addMoney);
-
-            if(convertValue >=0 ){
-
-                // const currentDeposit = document.getElementById('currentDeposit').innerText;
-                // const convertCurrentDeposit = parseFloat(currentDeposit);
-                // const total = convertValue + convertCurrentDeposit ;
-                // document.getElementById('currentDeposit').innerText = total;
-
-                // const currentBalance = document.getElementById('currentBalance').innerText;
-                // const convertCurrentBalance = parseFloat(currentBalance);
-                // const totalBalance = convertValue + convertCurrentBalance;
-                // document.getElementById('currentBalance').innerText = totalBalance;
-
+            const convertValue = getInputNumber('addAmount');
+            if(convertValue >=0)
+            {
                 depositBalance('currentDeposit', convertValue);  // using function , reducing code
                 depositBalance('currentBalance', convertValue);
 
@@ -112,6 +98,32 @@
                 document.body.onclick = alert("Wrong input !");
             }
         })
+
+        // withdraw event handler
+        const addWithdraw = document.getElementById('addWithdraw');
+        addWithdraw.addEventListener("click", function(){
+            const withdrawMoney = getInputNumber("withdrawAmount");
+            if(withdrawMoney>=0)
+            {
+                depositBalance('currentWithdraw', withdrawMoney);
+                depositBalance('currentBalance', -1 * withdrawMoney);
+
+                document.getElementById('withdrawAmount').value = '';
+            }
+            else
+            {
+                document.body.onclick = alert("Wrong input !");
+            }
+            
+        })
+
+
+        function getInputNumber(id)
+        {
+            const currentWithdraw = document.getElementById(id).value;
+            const withdrawMoney = parseFloat(currentWithdraw);
+            return withdrawMoney;
+        }
 
         function depositBalance(id,convertValue)
         {
