@@ -27,7 +27,7 @@
             <div class="col-md-4">
                 <div class="deposit status">
                     <h5>Deposit</h5>
-                    <h2>$00</h2>
+                    <h2>$ <span id="currentDeposit">00</span></h2>
                 </div>
             </div>
             <div class="col-md-4">
@@ -39,7 +39,7 @@
             <div class="col-md-4">
                 <div class="balance status">
                     <h5>Balance</h5>
-                    <h2>$1240</h2>
+                    <h2>$ <span id="currentBalance">1240</span></h2>
                 </div>
             </div>
         </div>
@@ -49,9 +49,9 @@
             <div class="col-md-6">
                 <div class="submit-ariea">
                     <h4>Deposit</h4>
-                    <input type="text" class="form-control" placeholder="$ amount you want to deposit">
+                    <input id="addAmount" type="text" class="form-control" placeholder="$ amount you want to deposit">
                     <br>
-                    <div class="btn btn-success">Deposit</div>
+                    <div id="addDeposit" class="btn btn-success">Deposit</div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -66,11 +66,17 @@
         
     </section>
 
+
+
+
+
     <footer>
         <small class="text-center d-block mt-5 pt-5">@ SABBIR AHMMED, 2021</small>
     </footer>
     
+
     <script>
+        // login event handler
         const loginBtn = document.getElementById('login');
         loginBtn.addEventListener("click", function(){
             const loginAriea = document.getElementById("login-ariea");
@@ -78,6 +84,43 @@
             const transectionAriea = document.getElementById('transection-ariea');
             transectionAriea.style.display = "block";
         })
+
+        // deposit event handler
+        const depositBtn = document.getElementById('addDeposit');
+        depositBtn.addEventListener("click", function(){
+            const addMoney = document.getElementById('addAmount').value;
+            const convertValue = parseFloat(addMoney);
+
+            if(convertValue >=0 ){
+
+                // const currentDeposit = document.getElementById('currentDeposit').innerText;
+                // const convertCurrentDeposit = parseFloat(currentDeposit);
+                // const total = convertValue + convertCurrentDeposit ;
+                // document.getElementById('currentDeposit').innerText = total;
+
+                // const currentBalance = document.getElementById('currentBalance').innerText;
+                // const convertCurrentBalance = parseFloat(currentBalance);
+                // const totalBalance = convertValue + convertCurrentBalance;
+                // document.getElementById('currentBalance').innerText = totalBalance;
+
+                depositBalance('currentDeposit', convertValue);  // using function , reducing code
+                depositBalance('currentBalance', convertValue);
+
+                document.getElementById('addAmount').value = '';
+            }
+            else{
+                document.body.onclick = alert("Wrong input !");
+            }
+        })
+
+        function depositBalance(id,convertValue)
+        {
+            const currentBalance = document.getElementById(id).innerText;
+            const convertBalance = parseFloat(currentBalance);
+            const totalAmount = convertBalance + convertValue ;
+            document.getElementById(id).innerText = totalAmount;
+        }
+
     </script>
 </body>
 </html>
