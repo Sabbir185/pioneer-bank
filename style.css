@@ -31,3 +31,8 @@ body{
 .balance{
     background-color: orange;
 }
+
+
+#user-form{
+    display: none;
+}
