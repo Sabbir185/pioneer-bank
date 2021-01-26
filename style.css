@@ -36,3 +36,10 @@ body{
 #user-form{
     display: none;
 }
+
+
+@media ( max-width : 576px){
+    body{
+        margin: 50px;
+    }
+}
